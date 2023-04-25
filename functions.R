@@ -27,3 +27,17 @@ stats_agregees <- function(x, stat = "moyenne", ...) {
   return(resultat)
 }
 
+read_yaml_secret <- function(path, key) {
+  return(yaml::read_yaml(path)[[key]])
+}
+read_from_parquet <- function(path) {
+  df <- arrow::read_parquet(
+    path,
+    col_select  = c(
+      "region", "aemm", "aged", "anai", "catl", "cs1", "cs2", "cs3",
+      "couple", "na38", "naf08", "pnai12", "sexe", "surf", "tp",
+      "trans", "ur"
+    )
+  )
+  return(df)
+}

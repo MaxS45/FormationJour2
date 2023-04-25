@@ -52,3 +52,6 @@ individu_reg.*
 
 # mdp API
 secrets.yaml
+
+# target
+_targets/
