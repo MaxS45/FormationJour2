@@ -5,6 +5,10 @@
 library(dplyr)
 library(ggplot2)
 library(forcats)
+library(renv)
+library(gt)
+
+
 
 api_token <- yaml::read_yaml("secrets.yaml")$JETON_API
 
@@ -16,8 +20,8 @@ df <- arrow::read_parquet(
   "individu_reg.parquet",
   col_select = c("region", "aemm", "aged", "anai", "catl", "cs1", "cs2",
                  "cs3", "couple", "na38", "naf08", "pnai12", "sexe",
-                 "surf", "tp", "trans", "ur")
-)
+                 "surf", "tp", "trans", "ur")) 
+str(df)
 
 # RETRAITEMENT --------------------------------
 
@@ -79,4 +83,22 @@ df3 <- df3 %>%
   )
 
 MASS::polr(surf ~ cs1 + factor(ur), df3)
+
+stats_age <- df %>%
+  group_by(decennie = decennie_a_partir_annee(age)) %>%
+  summarise(n())
+
+table_age <- gt::gt(stats_age) %>%
+  gt::tab_header(
+    title = "Distribution des âges dans notre population"
+  ) %>%
+  gt::fmt_number(
+    columns = `n()`,
+    sep_mark = " ",
+    decimals = 0
+  ) %>%
+  gt::cols_label(
+    decennie = "Tranche d'âge",
+    `n()` = "Population"
+  )
 
