@@ -2,25 +2,28 @@ decennie_a_partir_annee <- function(annee) {
   return(annee - annee %% 10)
 }
 
-#' calcul de statistique agrégée au choix
+#' Calcul automatique de stats agrégées
 #'
-#' @param x : sur laquelle calculer la statistique choisie
-#' @param statistique : statistique à calculer
+#' @param x Un vecteur
+#' @param stat La statistique d'intérêt. Peut-être "moyenne", "écart-type"
+#'  ou "variance". Par défaut "moyenne"
+#' @param ...  Arguments additionnels à passer aux fonctions de stats agrégées
 #'
-#' @return valeur
+#' @return Un vecteur avec la statistique d'intérêt
 #' @export
 #'
-#' @examples calculer_stat_agregee(rnorm(10))
-#' calculer_stat_agregee(rnorm(10), "ecart-type")
-#' calculer_stat_agregee(rnorm(10), "variance")
-
-calculer_stat_agregee <- function(x, statistique = "moyenne", ...) {
-  if (statistique == "moyenne") {
-    stat_agregee <- mean(x, na.rm = TRUE, ...)
-  } else if (statistique == "ecart-type" || statistique == "sd") {
-    stat_agregee <- sd(x, na.rm = TRUE, ...)
-  } else if (statistique == "variance") {
-    stat_agregee <- var(x, na.rm = TRUE, ...)
+#' @examples
+#' fonction_de_stat_agregee(rnorm(10))
+#' fonction_de_stat_agregee(rnorm(10), "ecart-type")
+#' fonction_de_stat_agregee(rnorm(10), "variance")
+stats_agregees <- function(x, stat = "moyenne", ...) {
+  if (stat == "moyenne") {
+    resultat <- mean(x, na.rm = TRUE, ...)
+  } else if (stat == "ecart-type" || stat == "sd") {
+    resultat <- sd(x, na.rm = TRUE, ...)
+  } else if (stat == "variance") {
+    resultat <- var(x, na.rm = TRUE, ...)
   }
-  return(x)
+  return(resultat)
 }
+

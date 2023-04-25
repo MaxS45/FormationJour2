@@ -1,3 +1,4 @@
+rm(list=ls())
 # Chaine de production sur le fichier recensement diffusé par l'Insee
 
 # GESTION ENVIRONNEMENT ----------------------
@@ -8,7 +9,8 @@ library(forcats)
 
 api_token <- yaml::read_yaml("secrets.yaml")$JETON_API
 
-source("R/functions.R", encoding = "UTF-8")
+# FONCTIONS ---------------------------------
+source("functions.R", encoding = "UTF-8")
 
 # IMPORT DONNEES -----------------------------
 
@@ -33,8 +35,8 @@ df$sexe <- df$sexe %>%
 
 summarise(group_by(df, aged), n())
 
-stats_agregees(df %>% filter(sexe == "Homme") %>% pull(aged))
-stats_agregees(df %>% filter(sexe == "Femme") %>% pull(aged))
+calculer_stat_agregee(df %>% filter(sexe == "Homme") %>% pull(aged))
+calculer_stat_agregee(df %>% filter(sexe == "Femme") %>% pull(aged))
 
 ## stats trans par statut =====================
 
@@ -70,7 +72,7 @@ ggsave("p.png", p)
 # MODELISATION -------------------------------
 
 df3 <- df %>%
-  select(surf, cs1, ur, couple, aged) %>%
+  dplyr::select(surf, cs1, ur, couple, aged) %>%
   filter(surf != "Z")
 
 df3 <- df3 %>%
