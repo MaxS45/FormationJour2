@@ -49,3 +49,6 @@ po/*~
 rsconnect/
 
 individu_reg.*
+
+# mdp API
+secrets.yaml
