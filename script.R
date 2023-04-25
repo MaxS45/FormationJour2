@@ -80,3 +80,4 @@ df3 <- df3 %>%
   )
 
 MASS::polr(surf ~ cs1 + factor(ur), df3)
+
