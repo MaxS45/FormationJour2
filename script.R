@@ -66,7 +66,6 @@ p <- df %>%
 
 ggsave("p.png", p)
 
-
 # MODELISATION -------------------------------
 
 df3 <- df %>%
