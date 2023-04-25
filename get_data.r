@@ -6,4 +6,4 @@ df <-
     opts = list("region" = "")
   )
 
-arrow::write_parquet(df, "individu_reg.csv")
+arrow::write_parquet(df, "individu_reg.parquet")
